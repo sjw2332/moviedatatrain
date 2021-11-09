@@ -1,3 +1,7 @@
+%%bash
+apt-get update
+pip3 install konlpy
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -153,6 +157,14 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.models import load_model
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
+embedding_dim = 100
+hidden_units = 128
+
+model = Sequential()
+model.add(Embedding(vocab_size, embedding_dim))
+model.add(LSTM(hidden_units))
+model.add(Dense(1, activation='sigmoid'))
+
 es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=4)
 mc = ModelCheckpoint('best_model.h5', monitor='val_acc', mode='max', verbose=1, save_best_only=True)
 
@@ -176,5 +188,5 @@ def sentiment_predict(new_sentence):
 
 
 
-sentiment_predict("ㅋㅋㅋ")
-
+sentiment_predict("쩌네")
+sentiment_predict("이상하네")
